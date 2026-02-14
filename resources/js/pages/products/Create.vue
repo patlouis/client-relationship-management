@@ -43,7 +43,7 @@ const submit = () => {
 
                         <form @submit.prevent="submit" class="space-y-6">
                             <div>
-                                <Label for="name">Product Name</Label>
+                                <Label for="name">Name</Label>
                                 <Input
                                     id="name"
                                     type="text"
@@ -78,7 +78,7 @@ const submit = () => {
                                 <textarea
                                     id="description"
                                     rows="4"
-                                    class="mt-1 block w-full rounded-md border-zinc-300 dark:border-zinc-700 dark:bg-zinc-950 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                    class="flex min-h-[80px] w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 mt-1 dark:bg-zinc-950 dark:border-zinc-800"
                                     v-model="form.description"
                                     placeholder="Tell us more about this product..."
                                 ></textarea>

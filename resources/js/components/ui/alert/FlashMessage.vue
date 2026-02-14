@@ -3,11 +3,9 @@ import { usePage } from '@inertiajs/vue3';
 import { computed, ref, watch, onMounted } from 'vue';
 
 const page = usePage();
-// Ensure we handle potential undefined props safely
 const flash = computed(() => (page.props.flash || {}) as { success?: string; error?: string });
 const show = ref(false);
 
-// Logic to show/hide toast
 const handleFlash = () => {
     if (flash.value.success || flash.value.error) {
         show.value = true;
@@ -15,10 +13,8 @@ const handleFlash = () => {
     }
 };
 
-// Watch for changes (navigation)
 watch(() => page.props.flash, handleFlash, { deep: true });
 
-// Check on mount (initial load)
 onMounted(handleFlash);
 </script>
 
