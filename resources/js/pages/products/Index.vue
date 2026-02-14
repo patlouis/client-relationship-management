@@ -69,7 +69,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                 {{ product.description || '-' }}
                             </td>
                             <td class="px-4 py-3 text-right">
-                                <Link :href="route('products.index')" class="text-zinc-500 hover:text-indigo-600 text-xs font-medium underline">
+                                <Link :href="route('products.edit', product.id)" class="text-zinc-500 hover:text-indigo-600 text-xs font-medium underline">
                                     Edit
                                 </Link>
                             </td>
