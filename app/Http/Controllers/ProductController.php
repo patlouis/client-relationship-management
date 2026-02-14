@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Http\Requests\StoreProductRequest;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -18,13 +19,9 @@ class ProductController extends Controller
         return Inertia::render('products/Create', []);
     }
 
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric',
-        ]);
+        $validated = $request->validated();
 
         Product::create($validated);
 
