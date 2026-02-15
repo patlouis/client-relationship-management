@@ -26,6 +26,10 @@ const props = defineProps<Props>();
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Products', href: route('products.index') },
 ];
+
+const confirmDelete = () => {
+    return window.confirm('Are you sure you want to delete this product?');
+};
 </script>
 
 <template>
@@ -69,9 +73,21 @@ const breadcrumbs: BreadcrumbItem[] = [
                                 {{ product.description || '-' }}
                             </td>
                             <td class="px-4 py-3 text-right">
-                                <Link :href="route('products.edit', product.id)" class="text-zinc-500 hover:text-indigo-600 text-xs font-medium underline">
-                                    Edit
-                                </Link>
+                                <div class="flex justify-end items-center gap-4">
+                                    <Link :href="route('products.edit', product.id)" class="text-zinc-500 hover:text-indigo-600 text-xs font-medium underline">
+                                        Edit
+                                    </Link>
+                                    <Link 
+                                        :href="route('products.destroy', product.id)" 
+                                        method="delete" 
+                                        as="button"
+                                        type="button"
+                                        :onBefore="confirmDelete"                                        
+                                        class="text-red-600 hover:text-red-700 text-xs font-medium underline cursor-pointer"
+                                    >
+                                        Delete
+                                    </Link>
+                                </div>
                             </td>
                         </tr>
 
