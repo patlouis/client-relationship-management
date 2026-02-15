@@ -2,16 +2,8 @@
 import { Head, Link } from '@inertiajs/vue3'; 
 import AppLayout from '@/layouts/AppLayout.vue';
 import Button from '@/components/ui/button/Button.vue';
-import { type BreadcrumbItem } from '@/types';
+import { type BreadcrumbItem, type Product } from '@/types';
 import { route } from 'ziggy-js';
-
-interface Product {
-    id: number;
-    name: string;
-    description: string;
-    price: string;
-    created_at: string;
-}
 
 interface Props {
     products: {

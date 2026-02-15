@@ -1,19 +1,12 @@
 <script setup lang="ts">
 import { Head, useForm } from '@inertiajs/vue3';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem } from '@/types';
+import { type BreadcrumbItem, type Product } from '@/types';
 import Label from '@/components/ui/label/Label.vue';
 import Input from '@/components/ui/input/Input.vue';
 import Button from '@/components/ui/button/Button.vue';
 import InputError from '@/components/InputError.vue';
 import { route } from 'ziggy-js';
-
-interface Product {
-    id: number;
-    name: string;
-    price: string;
-    description: string;
-}
 
 const props = defineProps<{
     product: Product;
