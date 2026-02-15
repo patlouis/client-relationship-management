@@ -1,27 +1,32 @@
 <script setup lang="ts">
 import { Head, useForm } from '@inertiajs/vue3';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem } from '@/types';
+import { type BreadcrumbItem, type Category } from '@/types';
 import Label from '@/components/ui/label/Label.vue';
 import Input from '@/components/ui/input/Input.vue';
 import Button from '@/components/ui/button/Button.vue';
 import InputError from '@/components/InputError.vue';
 import { route } from 'ziggy-js';
 
+const props = defineProps<{
+    categories: Category[];
+}>();
+
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Products', href: '/products' },
-    { title: 'Create Product', href: '/products/create' },
+    { title: 'Products', href: route('products.index') },
+    { title: 'Create Product', href: route('products.create') },
 ];
 
 const form = useForm({
     name: '',
     price: '',
     description: '',
+    category_id: '',
 });
 
 const submit = () => {
     form.post(route('products.store'), {
-        onFinish: () => form.reset('name', 'price', 'description'),
+        onFinish: () => form.reset('name', 'price', 'description', 'category_id'),
     });
 };
 </script>
@@ -47,13 +52,30 @@ const submit = () => {
                                 <Input
                                     id="name"
                                     type="text"
-                                    class="mt-1 block w-full"
+                                    class="mt-1 block w-full dark:bg-zinc-950 dark:border-zinc-800"
                                     v-model="form.name"
-                                    required
                                     autofocus
                                     placeholder="e.g. Wireless Headphones"
                                 />
                                 <InputError class="mt-2" :message="form.errors.name" />
+                            </div>
+
+                            <div>
+                                <Label for="category">Category</Label>
+                                <div class="mt-1">
+                                    <select
+                                        id="category"
+                                        v-model="form.category_id"
+                                        class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-950 dark:border-zinc-800"
+                                    >
+                                        <option value="" disabled>Select a category</option>
+                                        <option value="">(None)</option>
+                                        <option v-for="category in props.categories" :key="category.id" :value="category.id">
+                                            {{ category.name }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <InputError class="mt-2" :message="form.errors.category_id" />
                             </div>
 
                             <div>
@@ -64,9 +86,8 @@ const submit = () => {
                                         id="price"
                                         type="number"
                                         step="0.01"
-                                        class="block w-full pl-7"
+                                        class="block w-full pl-7 dark:bg-zinc-950 dark:border-zinc-800"
                                         v-model="form.price"
-                                        required
                                         placeholder="0.00"
                                     />
                                 </div>

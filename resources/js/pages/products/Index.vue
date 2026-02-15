@@ -48,6 +48,7 @@ const confirmDelete = () => {
                     <thead class="bg-zinc-50 dark:bg-zinc-900 text-zinc-500 border-b border-zinc-200 dark:border-zinc-800">
                         <tr>
                             <th class="px-4 py-3 font-medium">Name</th>
+                            <th class="px-4 py-3 font-medium">Category</th>
                             <th class="px-4 py-3 font-medium">Unit Price</th>
                             <th class="px-4 py-3 font-medium">Description</th>
                             <th class="px-4 py-3 font-medium text-right">Actions</th>
@@ -58,6 +59,16 @@ const confirmDelete = () => {
                             <td class="px-4 py-3 font-medium text-zinc-900 dark:text-zinc-100">
                                 {{ product.name }}
                             </td>
+                            
+                            <td class="px-4 py-3">
+                                <span v-if="product.category" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-zinc-100 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-zinc-700">
+                                    {{ product.category.name }}
+                                </span>
+                                <span v-else class="text-zinc-400 italic text-xs">
+                                    Uncategorized
+                                </span>
+                            </td>
+
                             <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">
                                 ${{ product.price }}
                             </td>
@@ -74,7 +85,7 @@ const confirmDelete = () => {
                                         method="delete" 
                                         as="button"
                                         type="button"
-                                        :onBefore="confirmDelete"                                        
+                                        :onBefore="confirmDelete"                                     
                                         class="text-red-600 hover:text-red-700 text-xs font-medium underline cursor-pointer"
                                     >
                                         Delete
@@ -84,7 +95,7 @@ const confirmDelete = () => {
                         </tr>
 
                         <tr v-if="props.products.data.length === 0">
-                            <td colspan="4" class="px-4 py-8 text-center text-zinc-500">
+                            <td colspan="5" class="px-4 py-8 text-center text-zinc-500">
                                 No products found. Click "Create Product" to add one.
                             </td>
                         </tr>
